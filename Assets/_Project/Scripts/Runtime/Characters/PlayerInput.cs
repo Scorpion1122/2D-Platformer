@@ -1,18 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+namespace Thijs.Platformer.Characters
 {
-    // Start is called before the first frame update
-    void Start()
+    public class PlayerInput : CharacterComponent
     {
         
-    }
+        private void Update()
+        {
+            Vector2 movementIntent = Vector2.zero;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+            movementIntent.x = Input.GetAxis("Horizontal");
+
+            if (Input.GetKey(KeyCode.Space))
+                movementIntent.y = 1f;
+
+            Character.MovementIntent = movementIntent;
+        }
     }
 }

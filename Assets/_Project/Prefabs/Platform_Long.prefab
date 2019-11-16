@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1360100612865463342}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Platform_Long
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8898554939085601446}
   - component: {fileID: 7932618764914511774}
   - component: {fileID: 6752690100789418101}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Decoration_Platform_Long
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,4 +166,4 @@ MonoBehaviour:
   - {x: -1.5, y: 0.234375, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -27676
+  m_InstanceId: 20016
