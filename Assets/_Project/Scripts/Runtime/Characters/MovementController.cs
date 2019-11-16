@@ -4,6 +4,8 @@ namespace Thijs.Platformer.Characters
 {
     public class MovementController : CharacterComponent
     {
+        private const string ANIM_WALK_KEY = "IsRunning";
+        
         [SerializeField] private float groundSpeed = 10f;
         [SerializeField] private float airSpeed = 5f;
         [SerializeField] private float maxHorizontalSpeed = 1f;
@@ -46,6 +48,8 @@ namespace Thijs.Platformer.Characters
             if (input.x > 0f)
                 facingDirection = FacingDirection.Right;
             Character.SetFacingDirection(facingDirection);
+            
+            Character.Animator.SetBool(ANIM_WALK_KEY, input.x != 0);
         }
 
         private float GetMovementSpeed()

@@ -7,16 +7,20 @@ namespace Thijs.Platformer.Characters
     [RequireComponent(typeof(Rigidbody2D))]
     public class Character : MonoBehaviour
     {
+        private const string ANIM_KEY_GROUNDED = "IsGrounded";
+        
         [SerializeField] private new Rigidbody2D rigidbody;
         [SerializeField] private Collider2D[] colliders;
         
         public Rigidbody2D Rigidbody => rigidbody;
 
         [Header("Visuals")] 
+        [SerializeField] private Animator animator;
         [SerializeField] private Transform visualsRoot;
 
         private Vector2 visualsOffset;
         public FacingDirection FacingDirection { get; private set; }
+        public Animator Animator => animator;
 
         [Header("Grounded")]
         [SerializeField] private LayerMask groundedLayer;
@@ -60,6 +64,8 @@ namespace Thijs.Platformer.Characters
         private void FixedUpdate()
         {
             UpdateGroundedState();
+            
+            Animator.SetBool(ANIM_KEY_GROUNDED, IsGrounded);
         }
 
         private void UpdateGroundedState()
