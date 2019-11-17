@@ -7,8 +7,8 @@ namespace Thijs.Platformer
     {
         public event Action<Health, Damage> OnDamageReceived;
         
-        [SerializeField] private DamageType allowedTypes;
-        [SerializeField] private float amount;
+        [SerializeField] private DamageType allowedTypes = DamageType.None;
+        [SerializeField] private float amount = 1f;
 
         public float Amount => amount;
 
