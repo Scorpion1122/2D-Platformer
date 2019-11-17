@@ -1,6 +1,6 @@
 using System;
 
-namespace _Project.Scripts.Runtime
+namespace Thijs.Platformer
 {
     [Flags]
     public enum DamageType

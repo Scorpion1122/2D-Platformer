@@ -11,8 +11,10 @@ namespace Thijs.Platformer.Characters
         [SerializeField] private float attackDelay = 0.3f;
         
         [SerializeField] private float hitForce = 500f;
+        [SerializeField] private float minForceAngle = 0f;
+        [SerializeField] private float maxForceAngle = 45f;
 
-        private List<Rigidbody2D> rigidbodyCache;
+        private Dictionary<Rigidbody2D, Collider2D> rigidbodyCache;
         private Collider2D[] colliderCache;
         private float lastAttackTime;
         
@@ -22,7 +24,7 @@ namespace Thijs.Platformer.Characters
             
             
             hitCollider.enabled = false;
-            rigidbodyCache = new List<Rigidbody2D>();
+            rigidbodyCache = new Dictionary<Rigidbody2D, Collider2D>();
             colliderCache = new Collider2D[20];
         }
 
@@ -37,28 +39,34 @@ namespace Thijs.Platformer.Characters
             if (timeSinceLastAttack < attackDelay)
                 return;
 
-            List<Rigidbody2D> rigidbodies = GetRigidbodiesInHitCollider();
-            for (int i = 0; i < rigidbodies.Count; i++)
+            Dictionary<Rigidbody2D, Collider2D> rigidbodies = GetRigidbodiesInHitCollider();
+            foreach (var hit in rigidbodies)
             {
-                HitRigidbody(rigidbodies[i]);
+                HitRigidbody(hit.Key, hit.Value);
             }
             
             Character.Animator.SetTrigger(ANIM_KEY_ATTACK);
             lastAttackTime = Time.time;
         }
 
-        private void HitRigidbody(Rigidbody2D rigidbody)
+        private void HitRigidbody(Rigidbody2D rigidbody, Collider2D collider)
         {
             Vector2 center = Character.GetCenter();
             Vector2 toOther = rigidbody.position - center;
             
-            rigidbody.AddForce(toOther.normalized * hitForce);
+            Vector2 forceDirection = new Vector2(toOther.x, 0f).normalized;
+            Quaternion rotation = Quaternion.Euler(0, 0, forceDirection.x * Random.Range(minForceAngle, maxForceAngle));
+            forceDirection = rotation * forceDirection;
+
+            Vector2 forcePosition = collider.bounds.ClosestPoint(center);
+            
+            rigidbody.AddForceAtPosition(forceDirection * hitForce, forcePosition);
+            Debug.DrawRay(forcePosition, forceDirection * hitForce, Color.red, 1f);
         }
 
-        private List<Rigidbody2D> GetRigidbodiesInHitCollider()
+        private Dictionary<Rigidbody2D, Collider2D> GetRigidbodiesInHitCollider()
         {
-            Vector2 center = hitCollider.transform.position;
-            center += hitCollider.offset;
+            Vector2 center = hitCollider.transform.TransformPoint(hitCollider.offset);
 
             int count = Physics2D.OverlapBoxNonAlloc(center, hitCollider.size, 0f, colliderCache);
             
@@ -67,8 +75,16 @@ namespace Thijs.Platformer.Characters
             {
                 Collider2D collider = colliderCache[i];
                 Rigidbody2D rigidbody = collider.attachedRigidbody;
-                if (rigidbody != null && rigidbody != Character.Rigidbody)
-                    rigidbodyCache.Add(rigidbody);
+                if (rigidbody == null)
+                    continue;
+
+                if (rigidbody == Character.Rigidbody)
+                    continue;
+
+                if (rigidbodyCache.ContainsKey(rigidbody))
+                    continue;
+                
+                rigidbodyCache.Add(rigidbody, collider);
             }
 
             return rigidbodyCache;
