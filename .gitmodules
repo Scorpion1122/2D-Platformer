@@ -1,0 +1,3 @@
+[submodule "Assets/Framework-Core"]
+	path = Assets/Framework-Core
+	url = https://github.com/Scorpion1122/Framework-Core.git
