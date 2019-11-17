@@ -16,9 +16,11 @@ namespace Thijs.Platformer
         {
             if (amount <= 0f)
                 return;
-            
+
             if (!IsMatchingDamageType(damage.type))
-                return;
+            {
+                damage.amount = 0f;
+            }
 
             amount -= damage.amount;
 
