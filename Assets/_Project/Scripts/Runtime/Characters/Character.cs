@@ -81,7 +81,7 @@ namespace Thijs.Platformer.Characters
                 origin, 
                 width, 
                 Vector2.down, 
-                0.1f, 
+                0.05f, 
                 groundedLayer.value);
 
             if (hit.collider == null)

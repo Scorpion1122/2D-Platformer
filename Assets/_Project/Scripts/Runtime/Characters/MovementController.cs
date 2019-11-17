@@ -4,22 +4,30 @@ namespace Thijs.Platformer.Characters
 {
     public class MovementController : CharacterComponent
     {
-        private const string ANIM_WALK_KEY = "IsRunning";
+        private static readonly int ANIM_KEY_WALK = Animator.StringToHash("IsRunning");
+        private static readonly int ANIM_KEY_JUMPING = Animator.StringToHash("IsJumping");
         
         [SerializeField] private float groundSpeed = 10f;
         [SerializeField] private float airSpeed = 5f;
         [SerializeField] private float maxHorizontalSpeed = 1f;
         [SerializeField] private float stoppingDrag = 0.9f;
         
+        [SerializeField] private float jumpForce = 100f;
+        [SerializeField] private float maxJumpDelay = 0.33f;
+        public bool IsJumping { get; private set; }
+        public bool WasJumping { get; private set; }
+
         private void FixedUpdate()
         {
             Vector2 input = Character.MovementIntent;
 
-            UpdateVelocity(input);
+            UpdateHorizontalVelocity(input);
+            UpdateJumpingVelocity(input);
+            LimitVelocity(input);
             UpdateVisuals(input);
         }
 
-        private void UpdateVelocity(Vector2 input)
+        private void UpdateHorizontalVelocity(Vector2 input)
         {
             Vector2 groundNormal = Character.GroundNormal;
             Vector2 velocity = Character.Rigidbody.velocity;
@@ -31,13 +39,46 @@ namespace Thijs.Platformer.Characters
 
             targetVelocity += horizontalMovement;
             
-            //Limit horizontal Speed
-            targetVelocity.x = Mathf.Clamp(targetVelocity.x, -maxHorizontalSpeed, maxHorizontalSpeed);
-            if (input.x == 0f && Character.IsGrounded)
-                targetVelocity.x *= stoppingDrag;
-            
             //Set the velocity
             Character.Rigidbody.velocity = targetVelocity;
+        }
+
+        private void UpdateJumpingVelocity(Vector2 input)
+        {
+            if (IsJumping && Character.Rigidbody.velocity.y <= 0f)
+            {
+                IsJumping = false;
+                WasJumping = true;
+                return;
+            }
+
+            if (Character.IsGrounded && WasJumping)
+            {
+                WasJumping = false;
+            }
+            
+            if (IsJumping || WasJumping || input.y <= 0f)
+                return;
+
+            float timeSinceGrounded = Time.time - Character.LastGroundTime;
+            if (!Character.IsGrounded && timeSinceGrounded > maxJumpDelay)
+                return;
+
+            Vector2 force = Vector2.up * jumpForce;
+            Character.Rigidbody.AddForce(force);
+            IsJumping = true;
+        }
+
+        private void LimitVelocity(Vector2 input)
+        {
+            Vector2 velocity = Character.Rigidbody.velocity;
+            
+            //Limit horizontal Speed
+            velocity.x = Mathf.Clamp(velocity.x, -maxHorizontalSpeed, maxHorizontalSpeed);
+            if (input.x == 0f && Character.IsGrounded)
+                velocity.x *= stoppingDrag;
+            
+            Character.Rigidbody.velocity = velocity;
         }
 
         private void UpdateVisuals(Vector2 input)
@@ -49,7 +90,8 @@ namespace Thijs.Platformer.Characters
                 facingDirection = FacingDirection.Right;
             Character.SetFacingDirection(facingDirection);
             
-            Character.Animator.SetBool(ANIM_WALK_KEY, input.x != 0);
+            Character.Animator.SetBool(ANIM_KEY_WALK, input.x != 0);
+            Character.Animator.SetBool(ANIM_KEY_JUMPING, IsJumping);
         }
 
         private float GetMovementSpeed()

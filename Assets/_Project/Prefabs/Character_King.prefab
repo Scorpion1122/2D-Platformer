@@ -27,12 +27,12 @@ PrefabInstance:
     - target: {fileID: 5867556250957420255, guid: 4e5be03f91b2ace41868919e7d738401,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.26
       objectReference: {fileID: 0}
     - target: {fileID: 5867556250957420255, guid: 4e5be03f91b2ace41868919e7d738401,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.78
       objectReference: {fileID: 0}
     - target: {fileID: 5867556250957420255, guid: 4e5be03f91b2ace41868919e7d738401,
         type: 3}
@@ -83,11 +83,6 @@ PrefabInstance:
         type: 3}
       propertyPath: maxHorizontalSpeed
       value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7893490250643056901, guid: 4e5be03f91b2ace41868919e7d738401,
-        type: 3}
-      propertyPath: groundSpeed
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e5be03f91b2ace41868919e7d738401, type: 3}
