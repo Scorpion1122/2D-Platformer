@@ -8,13 +8,15 @@ namespace Thijs.Platformer.Characters
         private void Update()
         {
             Vector2 movementIntent = Vector2.zero;
-
             movementIntent.x = Input.GetAxis("Horizontal");
-
-            if (Input.GetKey(KeyCode.Space))
-                movementIntent.y = 1f;
-
+            movementIntent.y = Input.GetAxis("Vertical");
             Character.MovementIntent = movementIntent;
+
+            if (Input.GetKeyDown(KeyCode.Space))
+                Character.AddActionIntent(ActionIntent.Jump);
+            
+            if (Input.GetKeyDown(KeyCode.C))
+                Character.AddActionIntent(ActionIntent.Attack);
         }
     }
 }

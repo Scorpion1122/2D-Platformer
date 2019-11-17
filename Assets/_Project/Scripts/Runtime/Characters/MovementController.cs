@@ -22,9 +22,11 @@ namespace Thijs.Platformer.Characters
             Vector2 input = Character.MovementIntent;
 
             UpdateHorizontalVelocity(input);
-            UpdateJumpingVelocity(input);
+            UpdateJumpingVelocity();
             LimitVelocity(input);
             UpdateVisuals(input);
+            
+            Character.UseActionIntent(ActionIntent.Jump);
         }
 
         private void UpdateHorizontalVelocity(Vector2 input)
@@ -43,7 +45,7 @@ namespace Thijs.Platformer.Characters
             Character.Rigidbody.velocity = targetVelocity;
         }
 
-        private void UpdateJumpingVelocity(Vector2 input)
+        private void UpdateJumpingVelocity()
         {
             if (IsJumping && Character.Rigidbody.velocity.y <= 0f)
             {
@@ -57,7 +59,7 @@ namespace Thijs.Platformer.Characters
                 WasJumping = false;
             }
             
-            if (IsJumping || WasJumping || input.y <= 0f)
+            if (IsJumping || WasJumping || !Character.HasActionIntent(ActionIntent.Jump))
                 return;
 
             float timeSinceGrounded = Time.time - Character.LastGroundTime;

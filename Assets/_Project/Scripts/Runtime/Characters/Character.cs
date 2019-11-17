@@ -11,24 +11,24 @@ namespace Thijs.Platformer.Characters
         
         [SerializeField] private new Rigidbody2D rigidbody;
         [SerializeField] private Collider2D[] colliders;
-        
-        public Rigidbody2D Rigidbody => rigidbody;
+        private ActionIntent actionIntent;
 
         [Header("Visuals")] 
         [SerializeField] private Animator animator;
         [SerializeField] private Transform visualsRoot;
-
         private Vector2 visualsOffset;
-        public FacingDirection FacingDirection { get; private set; }
-        public Animator Animator => animator;
 
         [Header("Grounded")]
         [SerializeField] private LayerMask groundedLayer;
+        
+        public Rigidbody2D Rigidbody => rigidbody;
+        
+        public FacingDirection FacingDirection { get; private set; }
+        public Animator Animator => animator;
+        
         public bool IsGrounded { get; private set; }
         public Vector2 GroundNormal { get; private set; }
         public float LastGroundTime { get; private set; }
-        
-        //Input / Actions
         public Vector2 MovementIntent { get; set; }
 
         private void Awake()
@@ -107,6 +107,27 @@ namespace Thijs.Platformer.Characters
             visualsRoot.localPosition = scale.x * visualsOffset;
 
             FacingDirection = facingDirection;
+        }
+
+        public void AddActionIntent(ActionIntent actionIntent)
+        {
+            this.actionIntent |= actionIntent;
+        }
+
+        public void UseActionIntent(ActionIntent actionIntent)
+        {
+            if (HasActionIntent(actionIntent))
+                this.actionIntent ^= actionIntent;
+        }
+
+        public bool HasActionIntent(ActionIntent actionIntent)
+        {
+            return (this.actionIntent & actionIntent) != 0;
+        }
+
+        public Vector3 GetCenter()
+        {
+            return GetBounds().center;
         }
     }
 }
