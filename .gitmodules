@@ -1,3 +1,6 @@
 [submodule "Assets/Framework-Core"]
 	path = Assets/Framework-Core
 	url = https://github.com/Scorpion1122/Framework-Core.git
+[submodule "Assets/Framework-MarchingSquares"]
+	path = Assets/Framework-MarchingSquares
+	url = https://github.com/Scorpion1122/Framework-MarchingSquares.git
