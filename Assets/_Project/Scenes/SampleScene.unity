@@ -2735,6 +2735,16 @@ MonoBehaviour:
   roughnessFrequency: 0.05
   maxRougnessModifier: 5
   rougnessHeightScale: 10
+  caveNoiseCutOff: 0.7
+  caveNoiseSettings:
+  - type: 1
+    frequency: 0.03
+    offset: 1000
+    invert: 0
+  - type: 1
+    frequency: 0.01
+    offset: 1000
+    invert: 0
 --- !u!114 &1393371384
 MonoBehaviour:
   m_ObjectHideFlags: 0
