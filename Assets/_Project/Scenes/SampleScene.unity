@@ -2730,11 +2730,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   seed: 1337
   heightOffset: 0
-  heightNoiseFrequency: 0.05
-  heightScale: 20
-  roughnessFrequency: 0.01
-  maxRougnessModifier: 3
-  rougnessHeightScale: 5
+  heightNoiseFrequency: 0.01
+  heightScale: 50
+  roughnessFrequency: 0.05
+  maxRougnessModifier: 5
+  rougnessHeightScale: 10
 --- !u!114 &1393371384
 MonoBehaviour:
   m_ObjectHideFlags: 0
