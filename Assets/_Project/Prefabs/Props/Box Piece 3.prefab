@@ -7,11 +7,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 9050159207991975886, guid: 8643774115e863645b29df095a67919a,
+    - target: {fileID: 1844825651451029827, guid: 8643774115e863645b29df095a67919a,
         type: 3}
-      propertyPath: m_Name
-      value: Box Piece 3
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 07e1a59b50a5e9546892a3706c43a1c9,
+        type: 3}
+    - target: {fileID: 1844825651451029827, guid: 8643774115e863645b29df095a67919a,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4984809683357249922, guid: 8643774115e863645b29df095a67919a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -67,12 +73,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1844825651451029827, guid: 8643774115e863645b29df095a67919a,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 07e1a59b50a5e9546892a3706c43a1c9,
-        type: 3}
     - target: {fileID: 6687670117831242194, guid: 8643774115e863645b29df095a67919a,
         type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
@@ -137,6 +137,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.data[4].y
       value: 0.060819242
+      objectReference: {fileID: 0}
+    - target: {fileID: 9050159207991975886, guid: 8643774115e863645b29df095a67919a,
+        type: 3}
+      propertyPath: m_Name
+      value: Box Piece 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8643774115e863645b29df095a67919a, type: 3}
