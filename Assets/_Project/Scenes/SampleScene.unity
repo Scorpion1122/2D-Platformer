@@ -2624,7 +2624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd8d1d8d42c40bf45bc5fd399b2782d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chunkResolution: 64
+  chunkResolution: 128
   tileSize: 0.5
   sharpnessLimit: 135
   tileTemplate: {fileID: 11400000, guid: 5bdcbec4e881c6d4f8e48be8325dce84, type: 2}
@@ -2693,20 +2693,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   seed: 1337
-  heightOffset: 0
-  heightNoiseFrequency: 0.01
-  heightScale: 50
-  roughnessFrequency: 0.05
-  maxRougnessModifier: 5
-  rougnessHeightScale: 10
+  heightOffset: -100
+  heightScale: 100
+  heightNoiseSettings:
+    type: 1
+    frequency: 0.001
+    frequencyTwo: 0.005
+    frequencyThree: 0.02
+    offset: 100
+    invert: 0
   caveNoiseCutOff: 0.7
   caveNoiseSettings:
   - type: 1
     frequency: 0.03
+    frequencyTwo: 0
+    frequencyThree: 0
     offset: 1000
     invert: 0
   - type: 1
     frequency: 0.01
+    frequencyTwo: 0
+    frequencyThree: 0
     offset: 1000
     invert: 0
 --- !u!114 &1393371384
